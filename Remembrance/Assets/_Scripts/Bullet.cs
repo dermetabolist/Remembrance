@@ -8,8 +8,8 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
     {
-		
-	}
+        //transform.Rotate(0, 0, 0);
+    }
 	
 	void Update ()
     {

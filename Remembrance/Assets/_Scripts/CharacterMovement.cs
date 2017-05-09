@@ -71,7 +71,7 @@ public class CharacterMovement : MonoBehaviour
     void AimAndShoot()
     {
         //kanone zielt immer auf AimPoint
-        //AimPoint.transform.LookAt(AimTarget);
+        AimPoint.transform.LookAt(AimTarget);
 
         //Aimpont berechnet position aus Parent + Axis-Input
         AimPoint.transform.position = new Vector2(transform.position.x - Input.GetAxis("RightStick_Horizontal"), transform.position.y - Input.GetAxis("RightStick_Vertical"));
@@ -82,8 +82,7 @@ public class CharacterMovement : MonoBehaviour
             Timer += Time.deltaTime;
             if (Timer > 1)
             {
-                Quaternion BulletRot = Quaternion.Euler(AimPoint.transform.rotation.x, AimPoint.transform.rotation.y, AimPoint.transform.rotation.z);
-                Instantiate(Bullet, new Vector2(AimPoint.transform.position.x, AimPoint.transform.position.y), BulletRot);
+                Instantiate(Bullet, new Vector2(AimPoint.transform.position.x, AimPoint.transform.position.y), AimPoint.transform.rotation);
                 Timer = 0;
             }
         }
