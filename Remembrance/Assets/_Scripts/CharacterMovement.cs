@@ -5,8 +5,11 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     float speed = 1.5f;
+    float dashspeed = 0f;
     float rotSpeed = 3f;
     float Timer = 0;
+
+    bool DoDash = false;
 
     public GameObject AimPoint;
     public GameObject Cannon;
@@ -14,6 +17,8 @@ public class CharacterMovement : MonoBehaviour
 
     public Transform AimTarget;
     public Transform Bullet;
+
+    public Rigidbody2D rb;
 
     float deltaX;
     float deltaY;
@@ -24,24 +29,28 @@ public class CharacterMovement : MonoBehaviour
     void Start ()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 	
 	
 	void Update ()
     {
         MoveCharacter();
-
+        
         AimAndShoot();
 
         //when Dash Aquired
-            //Dash();
+        Dash();
 
         //when Shield acquired
-            //Shield();
+        //Shield();
 
         //when Blast acquired
-            //Blast();
-	}
+        //Blast();
+
+        
+
+    }
 
     //TODO: MoveCharacter();
     void MoveCharacter()
@@ -58,14 +67,14 @@ public class CharacterMovement : MonoBehaviour
         {
             anim.SetBool("FacingRight", false);
             anim.SetBool("IsWalking", true);
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            transform.Translate(Vector2.left * (speed + dashspeed) * Time.deltaTime);
             
         }
         if (Input.GetAxis("Horizontal") > 0.5)
         {
             anim.SetBool("FacingRight", true);
             anim.SetBool("IsWalking", true);
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            transform.Translate(Vector2.right * (speed + dashspeed) * Time.deltaTime);
             
         }
 
@@ -74,13 +83,13 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetAxis("Vertical") < -0.5)
         {
             anim.SetBool("IsWalking", true);
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
+            transform.Translate(Vector2.up * (speed + dashspeed) * Time.deltaTime);
             
         }
         if (Input.GetAxis("Vertical") > 0.5)
         {
             anim.SetBool("IsWalking", true);
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
+            transform.Translate(Vector2.down * (speed + dashspeed) * Time.deltaTime);
         }
     }
 
@@ -112,7 +121,10 @@ public class CharacterMovement : MonoBehaviour
     //TODO: Dash();
     void Dash()
     {
-
+        if(Input.GetButtonDown("PS4_L2"))
+        {
+            
+        }
     }
 
     //TODO: Shield();
@@ -126,5 +138,7 @@ public class CharacterMovement : MonoBehaviour
     {
         //TODO: ShieldCooldown();
     }
+
+    
 
 }
