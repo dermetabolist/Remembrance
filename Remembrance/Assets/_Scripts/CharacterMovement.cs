@@ -18,10 +18,12 @@ public class CharacterMovement : MonoBehaviour
     float deltaX;
     float deltaY;
 
+    Animator anim;
+
 
     void Start ()
     {
-
+        anim = GetComponent<Animator>();
     }
 	
 	
@@ -44,25 +46,40 @@ public class CharacterMovement : MonoBehaviour
     //TODO: MoveCharacter();
     void MoveCharacter()
     {
-        //wenn Input x größer als wert
-            //dann bewege nach links
-        if (Input.GetAxis("Horizontal") < -0.5)
+        if (Input.GetAxis("Horizontal") > -0.5 || Input.GetAxis("Horizontal") < 0.5 || Input.GetAxis("Vertical") > -0.5 || Input.GetAxis("Vertical") < 0.5)
         {
+            anim.SetBool("IsWalking", false);
+        }
+
+
+            //wenn Input x größer als wert
+            //dann bewege nach links
+            if (Input.GetAxis("Horizontal") < -0.5)
+        {
+            anim.SetBool("FacingRight", false);
+            anim.SetBool("IsWalking", true);
             transform.Translate(Vector2.left * speed * Time.deltaTime);
+            
         }
         if (Input.GetAxis("Horizontal") > 0.5)
         {
+            anim.SetBool("FacingRight", true);
+            anim.SetBool("IsWalking", true);
             transform.Translate(Vector2.right * speed * Time.deltaTime);
+            
         }
 
         //wenn Input y größer als wert
             //dann bewege nach links
         if (Input.GetAxis("Vertical") < -0.5)
         {
+            anim.SetBool("IsWalking", true);
             transform.Translate(Vector2.up * speed * Time.deltaTime);
+            
         }
         if (Input.GetAxis("Vertical") > 0.5)
         {
+            anim.SetBool("IsWalking", true);
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
     }
