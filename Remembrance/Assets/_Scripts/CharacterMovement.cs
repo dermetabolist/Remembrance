@@ -97,22 +97,24 @@ public class CharacterMovement : MonoBehaviour
     void AimAndShoot()
     {
         //kanone zielt immer auf AimPoint
-        AimPoint.transform.LookAt(AimTarget);
+        Cannon.transform.LookAt(AimTarget);
 
         //Aimpont berechnet position aus Parent + Axis-Input
-        AimPoint.transform.position = new Vector2(transform.position.x - Input.GetAxis("RightStick_Horizontal"), transform.position.y - Input.GetAxis("RightStick_Vertical"));
+        
+        AimPoint.transform.position = new Vector2(/*transform.position.x - */Input.GetAxis("RightStick_Horizontal"),/* transform.position.y - */Input.GetAxis("RightStick_Vertical"));
 
         //Wenn Input != 0, dann instantiere bullets
         if (Input.GetAxis("RightStick_Horizontal") > 0.8 || Input.GetAxis("RightStick_Horizontal") < -0.8 || Input.GetAxis("RightStick_Vertical") > 0.8 || Input.GetAxis("RightStick_Vertical") < -0.8)
         {
             Timer += Time.deltaTime;
-            if (Timer > 1)
+            if (Timer > 0.25f)
             {
                 Instantiate(Bullet, new Vector2(AimPoint.transform.position.x, AimPoint.transform.position.y), AimPoint.transform.rotation);
                 Timer = 0;
             }
         }
 
+        
         //ShootCannon()
         //LookAt zielpunkt
         //instantiere bullets mit richtung und rotation des spawners
@@ -121,10 +123,10 @@ public class CharacterMovement : MonoBehaviour
     //TODO: Dash();
     void Dash()
     {
-        if(Input.GetButtonDown("PS4_L2"))
-        {
+        //if(Input.GetButtonDown("PS4_L2"))
+        //{
             
-        }
+        //}
     }
 
     //TODO: Shield();

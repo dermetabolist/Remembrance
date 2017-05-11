@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float speed = .05f;
-
-	void Start ()
+    float Speed = 5f;
+    float Timer = 0f;
+ 
+    void Update()
     {
-        //transform.Rotate(0, 0, 0);
+        transform.Translate(Vector2.up * Speed * Time.deltaTime);
+        Timer += Time.deltaTime;
+        if(Timer > 4)
+        {
+            Destroy(gameObject);
+        }
     }
-	
-	void Update ()
-    {
-        transform.Translate(Vector2.up * speed);
-	}
 }
