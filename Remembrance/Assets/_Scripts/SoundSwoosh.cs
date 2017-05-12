@@ -18,8 +18,6 @@ public class SoundSwoosh : MonoBehaviour {
     {
         if(other.tag == "Bullet")
         {
-
-            print("sehe bullet");
             RandomPitch = Random.Range(1f, 2.5f);
             audio.pitch = RandomPitch;
             audio.PlayOneShot(Swoosh, 0.75F);

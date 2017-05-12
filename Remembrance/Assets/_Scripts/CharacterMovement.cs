@@ -101,7 +101,7 @@ public class CharacterMovement : MonoBehaviour
 
         //Aimpont berechnet position aus Parent + Axis-Input
         
-        AimPoint.transform.position = new Vector2(/*transform.position.x - */Input.GetAxis("RightStick_Horizontal"),/* transform.position.y - */Input.GetAxis("RightStick_Vertical"));
+        AimPoint.transform.position = new Vector2(transform.position.x - (Input.GetAxis("RightStick_Horizontal") / 10),transform.position.y - (Input.GetAxis("RightStick_Vertical")/10));
 
         //Wenn Input != 0, dann instantiere bullets
         if (Input.GetAxis("RightStick_Horizontal") > 0.8 || Input.GetAxis("RightStick_Horizontal") < -0.8 || Input.GetAxis("RightStick_Vertical") > 0.8 || Input.GetAxis("RightStick_Vertical") < -0.8)
@@ -109,7 +109,16 @@ public class CharacterMovement : MonoBehaviour
             Timer += Time.deltaTime;
             if (Timer > 0.25f)
             {
-                Instantiate(Bullet, new Vector2(AimPoint.transform.position.x, AimPoint.transform.position.y), AimPoint.transform.rotation);
+                //Vector3 targetDir = AimPoint.transform.position - transform.position;
+                //float angle = Vector3.Angle(targetDir, transform.forward);
+
+                //float xRot = AimPoint.transform.position.x - transform.position.x;
+                //float yRot = AimPoint.transform.position.y - transform.position.y;
+                //float zRot = AimPoint.transform.position.z - transform.position.z;
+
+                //transform.eulerAngles = new Vector3(xRot, yRot, zRot);
+
+                Instantiate(Bullet, new Vector3(AimPoint.transform.position.x, AimPoint.transform.position.y), Quaternion.identity);
                 Timer = 0;
             }
         }
