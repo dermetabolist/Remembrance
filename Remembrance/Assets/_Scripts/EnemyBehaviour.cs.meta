@@ -1,10 +1,19 @@
 fileFormatVersion: 2
 guid: 930d3a3979bea1540a6583aff86d076a
-timeCreated: 1494496947
+timeCreated: 1494583567
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Spawner1: {instanceID: 0}
+  - Spawner2: {instanceID: 0}
+  - Spawner3: {instanceID: 0}
+  - Spawner4: {instanceID: 0}
+  - EnemyBullet: {instanceID: 0}
+  - audio: {instanceID: 0}
+  - Laser: {instanceID: 0}
+  - Hit: {fileID: 8300000, guid: a0623a72958dd654b8efeab5127803ff, type: 3}
+  - Kill: {fileID: 8300000, guid: fba9ed6a7df8c9a4bb4407e8008e5339, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

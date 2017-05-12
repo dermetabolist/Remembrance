@@ -14,6 +14,9 @@ public class CharacterMovement : MonoBehaviour
     public GameObject AimPoint;
     public GameObject Cannon;
     public GameObject Spawner;
+    public AudioSource audio;
+    public AudioClip LaserShot;
+    public AudioClip Pling;
 
     public Transform AimTarget;
     public Transform Bullet;
@@ -24,12 +27,14 @@ public class CharacterMovement : MonoBehaviour
     float deltaY;
 
     Animator anim;
+    
 
 
     void Start ()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        audio = GetComponent<AudioSource>();
     }
 	
 	
@@ -117,7 +122,7 @@ public class CharacterMovement : MonoBehaviour
                 //float zRot = AimPoint.transform.position.z - transform.position.z;
 
                 //transform.eulerAngles = new Vector3(xRot, yRot, zRot);
-
+                audio.PlayOneShot(LaserShot, 0.75f);
                 Instantiate(Bullet, new Vector3(AimPoint.transform.position.x, AimPoint.transform.position.y), Quaternion.identity);
                 Timer = 0;
             }
@@ -150,6 +155,24 @@ public class CharacterMovement : MonoBehaviour
         //TODO: ShieldCooldown();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
     
+        if (collision.tag == "EnemyBullet")
+        {
+            StaticHolder.PlayerHealth -= 5;
+        }
 
+        if (collision.tag == "EnemyBigBullet")
+        {
+            StaticHolder.PlayerHealth -= 10;
+        }
+
+        if (collision.tag == "Orb")
+        {
+            audio.PlayOneShot(Pling, 1f);
+        }
+    }
 }
+
+

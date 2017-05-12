@@ -5,17 +5,17 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour {
 
     //legt die gesundheit fest
-    float health = 5f;
+    public float health = 5f;
 
     //legt den punktwert für den score fest
-    int scoreValue = 100;
+    public int scoreValue = 100;
 
     //legt rotationsgeschwindigkeit der sphere fest
-    float rotSpeed = 25;
+    public float rotSpeed = 25;
     //legt geschwindigkeit von pillar fest
-    float moveSpeed = 5;
+    public float moveSpeed = 5;
     //legt die Schussfrequenz fest
-    float ShotDelay = 1;
+    public float ShotDelay = 1;
 
     float Timer = 0f;
 
@@ -28,8 +28,10 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public AudioSource audio;
     public AudioClip Laser;
+    public AudioClip Hit;
+    public AudioClip Kill;
 
-	public void Start ()
+    public virtual void Start ()
     {
         Player = GameObject.FindWithTag("Player");
 	}
@@ -42,7 +44,12 @@ public class EnemyBehaviour : MonoBehaviour {
         transform.RotateAround(Player.transform.position, Vector3.forward, rotSpeed * Time.deltaTime);
     }
 
-   
+    public void Update()
+    {
+            EnemyShooting();
+    }
+
+
 
     //TODO: EnemyShooting();
     public void EnemyShooting()
@@ -64,10 +71,12 @@ public class EnemyBehaviour : MonoBehaviour {
     {
         if(collision.tag == "PlayerBullet")
         {
+            audio.PlayOneShot(Hit, 1f);
             health--;
         }
         if(health <1)
         {
+            audio.PlayOneShot(Kill, 1f);
             StaticHolder.ScoreCounter += scoreValue;
             Destroy(gameObject);
         }
